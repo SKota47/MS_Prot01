@@ -1,44 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMoveScripts : MonoBehaviour
 {
     Rigidbody _rb;
-    CharacterController _charCon;
-    Vector2 _move;
-    public float _speed = 4.0f;
+    Vector3 _input;
+    private float _speed = 20.0f;
+    public Slider _hpSlider;
+    public int _maxHP = 100;
+    public float _currentHP;
+    private float _damage = 0;
 
-    private bool _isGrounded;
-    private float _jumpPow = 40.0f;
+    public GameObject _hpObject;
+    private Text _hpText;
+
+    private Vector2 _jumpPow = new Vector2(0.0f, 250.0f);
     private bool _isJump = false;
-    private float _gravity = 9.8f;
-    // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _charCon = GetComponent<CharacterController>();
+        _currentHP = _maxHP;
+        _hpText = _hpObject.GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        _isGrounded = _charCon.isGrounded;
-        Debug.Log(_charCon.isGrounded);
-        _move.x = Input.GetAxis("Horizontal") * Time.deltaTime * _speed;
-        //_move.y = Input.GetAxis("Vertical") * Time.deltaTime * _speed;
-
-        if (_isGrounded && Input.GetKeyDown(KeyCode.Space) && !_isJump)
+        if (Input.GetKeyDown(KeyCode.Space) && !_isJump)
         {
-            _move.y = Time.deltaTime * _jumpPow;
+            _rb.AddForce(Vector3.up * _jumpPow, ForceMode.Impulse);
             _isJump = true;
         }
-        else if (_isJump && _isGrounded)
+        _rb.velocity = new Vector3(Input.GetAxis("Horizontal") * _speed, _rb.velocity.y, 0);
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            _move.y = 0;
-            _isJump = false;
+            _damage = 1;
         }
-        _move.y -= _gravity;
-        _charCon.Move(_move);
+        else _damage = 0;
+        _currentHP -= _damage;
+        _hpSlider.value = _currentHP / _maxHP;
+        _hpText.text = _currentHP.ToString();
+    }
+
+    private void FixedUpdate()
+    {
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Floor")) _isJump = false;
     }
 }
