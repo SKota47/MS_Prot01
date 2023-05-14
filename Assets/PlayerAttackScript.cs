@@ -24,24 +24,24 @@ public class PlayerAttackScript : MonoBehaviour
         //_collider = _attackObj.GetComponent<Collider>();
     }
 
-    public void Attack()
-    {
-        // _collider.enabled = true;
-    }
     private void Update()
     {
-        //if (!_attackObj.activeSelf)
-        //{
-        //    _isAttack = false;
-        //}
+        if (_isAttack)
+        {
+            _attackDamage = 0;
+        }
+        if (!_attackObj.activeSelf)
+        {
+            _isAttack = false;
+        }
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Enemy01") /*&& !_isAttack*/)
+        if (collision.gameObject.CompareTag("Enemy01") && !_isAttack)
         {
             _attackDamage = _ATTACK_DAMAGE_MAX;
-            //_isAttack = true;
+            _isAttack = true;
         }
         else
         {
