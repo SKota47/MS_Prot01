@@ -5,26 +5,47 @@ using UnityEngine;
 
 public class PlayerAttackScript : MonoBehaviour
 {
-    public int _attackDamage = 10;   //攻撃ダメージ
-    GameObject _attackObj;       //攻撃範囲のコライダー
+    private int _ATTACK_DAMAGE_MAX = 10;   //攻撃ダメージ
+    public int _attackDamage;
+    public GameObject _attackObj;       //攻撃範囲のコライダー
     Collider _collider;
+
+    bool _isAttack = false;
+
+    GameObject _player;
+    PlayerMoveScripts _plMoveScripts;
 
     private void Start()
     {
+        _attackDamage = 0;
+        _player = GameObject.Find("Player");
+        _plMoveScripts = _player.GetComponent<PlayerMoveScripts>();
+        _attackObj.SetActive(false);
         //_collider = _attackObj.GetComponent<Collider>();
     }
 
     public void Attack()
     {
-       // _collider.enabled = true;
+        // _collider.enabled = true;
+    }
+    private void Update()
+    {
+        //if (!_attackObj.activeSelf)
+        //{
+        //    _isAttack = false;
+        //}
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy01") /*&& !_isAttack*/)
         {
-            //ダメージを与える
-            Destroy(collision.gameObject);
+            _attackDamage = _ATTACK_DAMAGE_MAX;
+            //_isAttack = true;
+        }
+        else
+        {
+            _attackDamage = 0;
         }
     }
 }
