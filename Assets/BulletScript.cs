@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
+    public float _bulletDamage = 2;
     void Start()
     {
 
@@ -19,7 +20,7 @@ public class BulletScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy01"))
         {
             EnemyHPScript _es = collision.GetComponent<EnemyHPScript>();
-            _es._damage = 2;
+            _es._damage = _bulletDamage;
             Destroy(gameObject);
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerAttackScript : MonoBehaviour
 {
-    private int _ATTACK_DAMAGE_MAX = 10;   //攻撃ダメージ
+    [System.NonSerialized] public int _ATTACK_DAMAGE_MAX = 10;   //攻撃ダメージ
     public int _attackDamage;
     public GameObject _attackObj;       //攻撃範囲のコライダー
     Collider _collider;

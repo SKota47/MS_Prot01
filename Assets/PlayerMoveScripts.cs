@@ -17,6 +17,8 @@ public class PlayerMoveScripts : MonoBehaviour
     public int _damageFromReload = 0;
     [System.NonSerialized]
     public int _damageByTouch = 0;
+    [System.NonSerialized]
+    public int _damageBySystem = 0;
 
     public Slider _hpBar;            //HPゲージのスライダー
     public GameObject _hpValue;      //UI
@@ -88,11 +90,13 @@ public class PlayerMoveScripts : MonoBehaviour
         _currentHP -= _damage;
         _currentHP -= _damageFromReload;
         _currentHP -= _damageByTouch;
+        _currentHP -= _damageBySystem;
         _hpBar.value = _currentHP / _maxHP;
         _hpText.text = _currentHP.ToString();
         _damage = 0;
         _damageFromReload = 0;
         _damageByTouch = 0;
+        _damageBySystem = 0;
     }
 
     private void FixedUpdate()
