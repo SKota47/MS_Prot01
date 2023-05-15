@@ -13,6 +13,10 @@ public class PlayerMoveScripts : MonoBehaviour
     public int _maxHP = 100;        //最大体力
     public float _currentHP;        //現在の体力
     private float _damage = 0;      //受けるダメージ
+    [System.NonSerialized]
+    public int _damageFromReload = 0;
+    [System.NonSerialized]
+    public int _damageByTouch = 0;
 
     public Slider _hpBar;            //HPゲージのスライダー
     public GameObject _hpValue;      //UI
@@ -20,6 +24,9 @@ public class PlayerMoveScripts : MonoBehaviour
 
     public GameObject _attackBox;       //攻撃時の当たり判定Cube
     private Collider _attackCollision;  //当たり判定コライダー(おそらく未使用)
+
+    public GameObject _bullel;
+    private BulletShotScript _bsShot;
 
     public float _attackTime = 0;
     private const float _ATTACK_TIME_MAX = 0.25f;
@@ -32,11 +39,11 @@ public class PlayerMoveScripts : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _currentHP = _maxHP;
         _hpText = _hpValue.GetComponent<Text>();
+        _bsShot = _bullel.GetComponent<BulletShotScript>();
     }
 
     void Update()
     {
-        Debug.Log(_attackTime);
         //移動
         //ジャンプ
         if (Input.GetKeyDown(KeyCode.Space) && !_isJump)
@@ -51,8 +58,7 @@ public class PlayerMoveScripts : MonoBehaviour
         if (_rb.velocity.x < 0) transform.eulerAngles = new Vector3(0, 90, 0);
 
         //プレイヤーにダメージ
-        if (Input.GetKeyDown(KeyCode.Q)) _damage = 1;
-        else _damage = 0;
+        if (Input.GetKeyDown(KeyCode.P)) _damage = 1;
 
         //攻撃と攻撃判定オンオフ
         if (Input.GetKeyDown(KeyCode.E) && !_isAttack)
@@ -72,9 +78,21 @@ public class PlayerMoveScripts : MonoBehaviour
         }
 
         //HPの処理
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _damageFromReload = (5 - _bsShot._bulletCount) * 2;
+            _bsShot._bulletCount = 5;
+        }
+
         _currentHP -= _damage;
+        _currentHP -= _damageFromReload;
+        _currentHP -= _damageByTouch;
         _hpBar.value = _currentHP / _maxHP;
         _hpText.text = _currentHP.ToString();
+        _damage = 0;
+        _damageFromReload = 0;
+        _damageByTouch = 0;
     }
 
     private void FixedUpdate()

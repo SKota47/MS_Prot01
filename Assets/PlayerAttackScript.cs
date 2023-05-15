@@ -21,31 +21,20 @@ public class PlayerAttackScript : MonoBehaviour
         _player = GameObject.Find("Player");
         _plMoveScripts = _player.GetComponent<PlayerMoveScripts>();
         _attackObj.SetActive(false);
-        //_collider = _attackObj.GetComponent<Collider>();
     }
 
     private void Update()
     {
-        if (_isAttack)
-        {
-            _attackDamage = 0;
-        }
-        if (!_attackObj.activeSelf)
-        {
-            _isAttack = false;
-        }
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Enemy01") && !_isAttack)
+        if (collision.gameObject.CompareTag("Enemy01"))
         {
-            _attackDamage = _ATTACK_DAMAGE_MAX;
+            EnemyHPScript _es = collision.GetComponent<EnemyHPScript>();
+
+            _es._damage = _ATTACK_DAMAGE_MAX;
             _isAttack = true;
-        }
-        else
-        {
-            _attackDamage = 0;
         }
     }
 }

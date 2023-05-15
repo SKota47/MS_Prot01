@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ほとんどHPの管理をしているだけです
+/// 今後インターフェース実装を予定しています
+/// </summary>
 public class EnemyHPScript : MonoBehaviour
 {
     private float _maxHP;
     public Slider _slider;
     private float _currentHP;
+    public float _damage;
 
     private string _enemyType;
 
@@ -45,12 +50,13 @@ public class EnemyHPScript : MonoBehaviour
 
     public void Update()
     {
-        _currentHP -= _plAttackScript._attackDamage;
+        _currentHP -= _damage;
         _slider.value = _currentHP / _maxHP;
 
         if (_currentHP == 0)
         {
             Destroy(gameObject);
         }
+        _damage = 0;
     }
 }
