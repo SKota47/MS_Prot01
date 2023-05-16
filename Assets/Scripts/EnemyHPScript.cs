@@ -53,7 +53,7 @@ public class EnemyHPScript : MonoBehaviour
         _currentHP -= _damage;
         _slider.value = _currentHP / _maxHP;
 
-        if (_currentHP == 0)
+        if (_currentHP <= 0)
         {
             Destroy(gameObject);
         }

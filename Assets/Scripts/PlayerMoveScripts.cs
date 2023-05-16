@@ -60,7 +60,7 @@ public class PlayerMoveScripts : MonoBehaviour
         if (_rb.velocity.x < 0) transform.eulerAngles = new Vector3(0, 90, 0);
 
         //プレイヤーにダメージ
-        if (Input.GetKeyDown(KeyCode.P)) _damage = 1;
+        //if (Input.GetKeyDown(KeyCode.P)) _damage = 1;
 
         //攻撃と攻撃判定オンオフ
         if (Input.GetKeyDown(KeyCode.E) && !_isAttack)
@@ -87,6 +87,19 @@ public class PlayerMoveScripts : MonoBehaviour
             _bsShot._bulletCount = 5;
         }
 
+        HPCulc();
+    }
+
+    private void FixedUpdate()
+    {
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+         if (other.gameObject.CompareTag("Floor") && _isJump) _isJump = false;  //ジャンプ
+    }
+
+    private void HPCulc()
+    {
         _currentHP -= _damage;
         _currentHP -= _damageFromReload;
         _currentHP -= _damageByTouch;
@@ -97,13 +110,5 @@ public class PlayerMoveScripts : MonoBehaviour
         _damageFromReload = 0;
         _damageByTouch = 0;
         _damageBySystem = 0;
-    }
-
-    private void FixedUpdate()
-    {
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Floor")) _isJump = false;  //ジャンプ
     }
 }

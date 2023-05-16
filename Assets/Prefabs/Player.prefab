@@ -235,7 +235,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: -0.505, z: 0}
+  m_Center: {x: 0, y: -0.6, z: 0}
 --- !u!114 &8831459934507206444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +252,7 @@ MonoBehaviour:
   bullet: {fileID: 1007021245737263864, guid: 000bf4cbdded53745acde8ecb8558682, type: 3}
   speed: 30
   _bulletCount: 5
+  _bulletCountUI: {fileID: 0}
 --- !u!1 &4427219859068023137
 GameObject:
   m_ObjectHideFlags: 0

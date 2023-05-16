@@ -22,11 +22,11 @@ public class BufSystemScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_bufPanel)
+        if (_bufPanel.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                _plAttackScript._ATTACK_DAMAGE_MAX *= 2;
+                _plAttackScript._ATTACK_DAMAGE_MAX *= 3;
                 _plScript._damageBySystem = (int)_plScript._currentHP / 2;
                 _bufPanel.SetActive(false);
             }
