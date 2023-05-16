@@ -6,17 +6,11 @@ using UnityEngine.UI;
 public class BulletShotScript : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("’e‚Ì”­ŽËêŠ")]
-    private GameObject firingPoint;
-
+    public GameObject _firingPoint;
     [SerializeField]
-    [Tooltip("’e")]
-    private GameObject bullet;
-
+    public GameObject _bullet;
     [SerializeField]
-    [Tooltip("’e‚Ì‘¬‚³")]
-    private float speed = 30f;
-
+    private float _speed = 24.0f;
     [SerializeField]
     public int _bulletCount = 5;
 
@@ -30,26 +24,21 @@ public class BulletShotScript : MonoBehaviour
 
     void Update()
     {
-        // ƒXƒy[ƒXƒL[‚ª‰Ÿ‚³‚ê‚½‚©‚ð”»’è
         if (Input.GetKeyDown(KeyCode.Q) && _bulletCount > 0)
         {
-            // ’e‚ð”­ŽË‚·‚é
             Shot();
             _bulletCount--;
         }
-        _bulletCountText.text = _bulletCount.ToString();
+        _bulletCountText.text = _bulletCount.ToString() + "/5";
     }
 
-    /// <summary>
-	/// ’e‚Ì”­ŽË
-	/// </summary>
     private void Shot()
     {
-        Vector3 bulletPosition = firingPoint.transform.position;
-        GameObject newBall = Instantiate(bullet, bulletPosition, transform.rotation);
+        Vector3 bulletPosition = _firingPoint.transform.position;
+        GameObject newBall = Instantiate(_bullet, bulletPosition, transform.rotation);
         Vector3 direction = -newBall.transform.forward;
-        newBall.GetComponent<Rigidbody>().AddForce(direction * speed, ForceMode.Impulse);
-        newBall.name = bullet.name;
+        newBall.GetComponent<Rigidbody>().AddForce(direction * _speed, ForceMode.Impulse);
+        newBall.name = _bullet.name;
 
         Destroy(newBall, 0.8f);
     }

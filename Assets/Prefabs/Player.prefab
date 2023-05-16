@@ -248,9 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a8bf8579313394690850e635eb54b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firingPoint: {fileID: 2327779812956666321}
-  bullet: {fileID: 1007021245737263864, guid: 000bf4cbdded53745acde8ecb8558682, type: 3}
-  speed: 30
+  _firingPoint: {fileID: 2327779812956666321}
+  _bullet: {fileID: 1007021245737263864, guid: 000bf4cbdded53745acde8ecb8558682, type: 3}
+  _speed: 24
   _bulletCount: 5
   _bulletCountUI: {fileID: 0}
 --- !u!1 &4427219859068023137
