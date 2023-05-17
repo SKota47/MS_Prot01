@@ -21,6 +21,11 @@ public class EnemyHPScript : MonoBehaviour
 
     void Awake()
     {
+
+    }
+
+    private void Start()
+    {
         _enemyType = gameObject.tag;
         switch (_enemyType)
         {
@@ -39,10 +44,7 @@ public class EnemyHPScript : MonoBehaviour
         }
 
         _currentHP = _maxHP;
-    }
 
-    private void Start()
-    {
         _player = GameObject.Find("AttackBox");
         _plAttackScript = _player.GetComponent<PlayerAttackScript>();
         _slider = GetComponentInChildren<Slider>();
